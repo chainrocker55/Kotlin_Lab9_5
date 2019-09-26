@@ -58,9 +58,9 @@ class GameFragment : Fragment() {
         viewModel.resetList()
         viewModel.nextWord()
 
-        binding.correctButton.setOnClickListener { onCorrect() }
-        binding.skipButton.setOnClickListener { onSkip() }
-        binding.endGameButton.setOnClickListener { onEndGame() }
+        binding.gameViewModel = viewModel
+
+
 
         viewModel.score.observe(this, Observer { newScore ->
             binding.scoreText.text = newScore.toString()
@@ -68,32 +68,39 @@ class GameFragment : Fragment() {
         viewModel.word.observe(this, Observer { newWord ->
             binding.wordText.text = newWord
         })
+        viewModel.eventGameFinish.observe(this, Observer { hashFinish ->
+            if(hashFinish){
+                gameFinished()
+            }
+
+        })
 //        updateScoreText()
 //        updateWordText()
         return binding.root
 
     }
-
-    private fun onSkip() {
-        viewModel.onSkip()
-//        updateWordText()
-//        updateScoreText()
-    }
-
-    private fun onCorrect() {
-        viewModel.onCorrect()
-//        updateWordText()
-//        updateScoreText()
-
-    }
-    private fun onEndGame() {
-        gameFinished()
-    }
+//
+//    private fun onSkip() {
+//        viewModel.onSkip()
+////        updateWordText()
+////        updateScoreText()
+//    }
+//
+//    private fun onCorrect() {
+//        viewModel.onCorrect()
+////        updateWordText()
+////        updateScoreText()
+//
+//    }
+//    private fun onEndGame() {
+//        gameFinished()
+//    }
     private fun gameFinished() {
         Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
         val action = GameFragmentDirections.actionGameToScore()
         action.score = viewModel.score.value?:0
         NavHostFragment.findNavController(this).navigate(action)
+        viewModel.onGameFinishComplete()
     }
     /**
      * Resets the list of words and randomizes the order
