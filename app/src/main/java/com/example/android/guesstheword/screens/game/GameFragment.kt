@@ -43,9 +43,6 @@ class GameFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
-
-
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
                 inflater,
@@ -59,15 +56,15 @@ class GameFragment : Fragment() {
         viewModel.nextWord()
 
         binding.gameViewModel = viewModel
+        binding.lifecycleOwner = this
 
 
-
-        viewModel.score.observe(this, Observer { newScore ->
-            binding.scoreText.text = newScore.toString()
-        })
-        viewModel.word.observe(this, Observer { newWord ->
-            binding.wordText.text = newWord
-        })
+//        viewModel.score.observe(this, Observer { newScore ->
+//            binding.scoreText.text = newScore.toString()
+//        })
+//        viewModel.word.observe(this, Observer { newWord ->
+//            binding.wordText.text = newWord
+//        })
         viewModel.eventGameFinish.observe(this, Observer { hashFinish ->
             if(hashFinish){
                 gameFinished()
