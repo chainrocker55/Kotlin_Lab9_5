@@ -35,7 +35,7 @@ import com.example.android.guesstheword.databinding.GameFragmentBinding
  */
 class GameFragment : Fragment() {
 
-    // The current word
+    // The current _word
 
     private lateinit var binding: GameFragmentBinding
 
@@ -100,11 +100,11 @@ class GameFragment : Fragment() {
      */
 
 //    private fun updateWordText() {
-//        binding.wordText.text = viewModel.word.value
+//        binding.wordText.text = viewModel._word.value
 //    }
 //
 //    private fun updateScoreText() {
-//        binding.scoreText.text = viewModel.score.value.toString()
+//        binding.scoreText.text = viewModel._score.value.toString()
 //    }
 
 }
